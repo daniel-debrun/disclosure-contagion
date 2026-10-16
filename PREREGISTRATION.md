@@ -93,4 +93,11 @@ Reported as well: B1 against B0, the % change in MSE, and the B2 coefficient.
 
 ## Amendments
 
-None yet.
+1. **2026-10-15, before any fit: train starts 2017-01-01, not 2016-07-01.** The Sharadar SEP snapshot starts on
+   2016-01-04, so the session calendar does too, and `Q` (sessions t-262..t-242) cannot be computed until early 2017.
+   Starting train when every feature exists is simpler than filling the gap. Test is unchanged.
+2. **2026-10-15, before any fit: implementation details the plan left open.**
+   - The 19 firms (1% of member firm-days) with no Sharadar classification are not fitted, since they have no
+     peers; their filings still count in `M`.
+   - Test is scored on firms that have a train `mu` (members in both periods).
+   - Members whose prices are missing (Sharadar lacks a few, e.g. BK, PARA) stay in Model A and drop out of Model B.
